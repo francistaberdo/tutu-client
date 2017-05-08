@@ -1,3 +1,4 @@
+import Submission from './components/Submission';
 import { useStrict } from 'mobx';
 import { Provider } from 'mobx-react';
 import * as React from 'react';
@@ -36,6 +37,7 @@ ReactDOM.render(
     <Router history={browserHistory} >
       <Route path="/" component={AppLayout} >
         <IndexRoute component={App} />
+        <Route path="/submission" component={Submission} />
       </Route>
     </Router>
   </Provider>,
