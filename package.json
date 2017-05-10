@@ -12,7 +12,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/classnames": "^0.0.32",
-    "@types/mapbox-gl": "^0.30.0",
+    "@types/lodash": "^4.14.64",
     "@types/node": "^7.0.5",
     "@types/react": "^15.0.12",
     "@types/react-dom": "^0.14.23",
@@ -47,13 +47,14 @@
     "axios": "^0.16.1",
     "classnames": "^2.2.5",
     "google-map-react": "^0.24.0",
-    "material-ui": "^0.17.4",
     "mobx": "^3.1.0",
     "mobx-react": "^4.1.0",
     "mobx-react-router": "^3.1.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-router": "^3.0.2",
-    "react-tap-event-plugin": "^2.0.1"
+    "semantic-ui-react": "^0.68.3",
+    "socket.io-client": "^2.0.1",
+    "to-title-case": "^1.0.0"
   }
 }

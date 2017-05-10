@@ -3,24 +3,20 @@ import { inject, observer } from 'mobx-react';
 import * as React from 'react';
 import { STORE_MAP } from '../../constants/stores';
 import MapStore from '../../stores/MapStore';
+import ArticleMarker from '../Markers/ArticleMarker';
 
-const Article = ({ lng, lat, title }) => (
-  <div style={{ width: '30px', height: '30px', backgroundColor: 'red', borderRadius: '50px' }}>
-    <p style={{ position: 'absolute' }}>{title}</p>
-  </div>
-);
+const mapStyles = [{ 'featureType': 'landscape', 'stylers': [{ 'hue': '#F1FF00' }, { 'saturation': -27.4 }, { 'lightness': 9.4 }, { 'gamma': 1 }] }, { 'featureType': 'road.highway', 'stylers': [{ 'hue': '#0099FF' }, { 'saturation': -20 }, { 'lightness': 36.4 }, { 'gamma': 1 }] }, { 'featureType': 'road.arterial', 'stylers': [{ 'hue': '#00FF4F' }, { 'saturation': 0 }, { 'lightness': 0 }, { 'gamma': 1 }] }, { 'featureType': 'road.local', 'stylers': [{ 'hue': '#FFB300' }, { 'saturation': -38 }, { 'lightness': 11.2 }, { 'gamma': 1 }] }, { 'featureType': 'water', 'stylers': [{ 'hue': '#00B6FF' }, { 'saturation': 4.2 }, { 'lightness': -63.4 }, { 'gamma': 1 }] }, { 'featureType': 'poi', 'stylers': [{ 'hue': '#9FFF00' }, { 'saturation': 0 }, { 'lightness': 0 }, { 'gamma': 1 }] }];
+
 const Center = ({ lng, lat }) => (
   <div style={{ width: '30px', height: '30px', backgroundColor: 'green', borderRadius: '50px' }} />
 );
 
 @inject(STORE_MAP)
 @observer
-export default class Map extends React.Component<{ mapStore?: MapStore, defaultCenter }, void> {
-  static defaultProps = {
-    defaultCenter: {
-      lng: 120.87461673736573,
-      lat: 14.64313727811323,
-    },
+export default class Map extends React.Component<{ mapStore?: MapStore }, void> {
+  defaultCenter = {
+    lng: 120.87461673736573,
+    lat: 14.64313727811323,
   };
   render() {
     const { mapStore } = this.props;
@@ -28,9 +24,14 @@ export default class Map extends React.Component<{ mapStore?: MapStore, defaultC
     return (
       <GoogleMapReact
         defaultZoom={9}
-        defaultCenter={this.props.defaultCenter}
+        defaultCenter={this.defaultCenter}
         bootstrapURLKeys={{
           key: 'AIzaSyBOgu8O3Vhe47FZNa4p1KZzAjBhfmiB-n8',
+        }}
+        options={{
+          minZoom: 8,
+          maxZoom: 13,
+          styles: mapStyles,
         }}
         onChange={mapStore.changePosition}
       >
@@ -42,10 +43,12 @@ export default class Map extends React.Component<{ mapStore?: MapStore, defaultC
           return article && article.doc.locations.map(({ position }) => {
             const [lng, lat] = position.coordinates;
             return (
-              <Article
+              <ArticleMarker
                 lng={lng}
                 lat={lat}
-                title={article.doc.title}
+                source={article.domain}
+                sourceUrl={article.url}
+                document={article.doc}
               />
             );
           });

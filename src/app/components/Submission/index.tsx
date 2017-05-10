@@ -1,5 +1,5 @@
-import { RaisedButton, TextField } from 'material-ui';
 import * as React from 'react';
+import { Input } from 'semantic-ui-react';
 
 interface ILocalState {
   sourceUrl: string;
@@ -11,13 +11,9 @@ export default class Submission extends React.Component<void, ILocalState> {
     return (
       <div>
         <form>
-          <TextField
-            floatingLabelText="Source URL"
+          <Input
+            placeholder="Source URL"
             onChange={(e: React.FormEvent<HTMLInputElement>) => this.setState({ sourceUrl: e.currentTarget.value })}
-          />
-          <RaisedButton
-            label="Submit"
-            primary
           />
         </form>
       </div>

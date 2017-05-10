@@ -51,8 +51,8 @@ module.exports = {
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
           use: [
+            'style-loader',
             {
               loader: 'css-loader',
               query: {
@@ -62,10 +62,8 @@ module.exports = {
                 localIdentName: '[local]__[hash:base64:5]'
               }
             },
-            {
-              loader: 'postcss-loader'
-            }
-          ]
+            'postcss-loader'
+          ],
         })
       },
       // static assets

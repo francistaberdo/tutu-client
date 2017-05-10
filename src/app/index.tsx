@@ -1,11 +1,11 @@
-import Submission from './components/Submission';
 import { useStrict } from 'mobx';
 import { Provider } from 'mobx-react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { browserHistory, IndexRoute, Route, Router } from 'react-router';
 import App from './components/App';
-import AppLayout from './components/AppLayout';
+import AppWrapper from './components/AppWrapper';
+import Submission from './components/Submission';
 import { STORE_MAP, STORE_ROUTER, STORE_TODO } from './constants/stores';
 import { TodoModel } from './models/TodoModel';
 import MapStore from './stores/MapStore';
@@ -35,7 +35,7 @@ const rootStores = {
 ReactDOM.render(
   <Provider {...rootStores} >
     <Router history={browserHistory} >
-      <Route path="/" component={AppLayout} >
+      <Route path="/" component={AppWrapper} >
         <IndexRoute component={App} />
         <Route path="/submission" component={Submission} />
       </Route>

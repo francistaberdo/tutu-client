@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { action, observable, runInAction } from 'mobx';
+import { IArticle } from '../models/article';
 
 export default class MapStore {
   @observable latitude = 15.068294431378291;
   @observable longitude = 120.64643585205079;
-  @observable articles = [];
+  @observable articles = [] as IArticle[];
   @observable center = {
     lng: 0,
     lat: 0,
@@ -12,7 +13,10 @@ export default class MapStore {
 
   @action
   changePosition = async ({ center: { lng, lat }, zoom }) => {
-    const maxDist = zoom >= 13 ? (900 / zoom) / 8 : 900 / zoom;
+    const maxDist = zoom >= 13
+      ? (900 / zoom) / 8
+      : 1200 / zoom;
+
     const res = await axios.get('http://localhost:3000/api/articles', {
       params: {
         lng,
